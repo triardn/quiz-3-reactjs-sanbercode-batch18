@@ -7,6 +7,7 @@ import Home from './../Home';
 import About from './../About';
 import MovieListEditor from './../MovieListEditor';
 import Login from './../Login';
+import Logout from './../Logout';
 
 import {MovieListProvider} from './../Context';
 
@@ -24,6 +25,9 @@ const Navigation = () => {
                     </Route>
                     <Route path="/login">
                         <Login />
+                    </Route>
+                    <Route path="/logout">
+                        <Logout />
                     </Route>
                     <Route path="/">
                         <Home />

@@ -1,10 +1,12 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 
 import {MovieListContext} from  "./../Context";
 
 const MovieListEditor = () => {
-    const [, , , , movieList, setMovieList, movieTitle, setMovieTitle, movieDescription, setMovieDescription, movieReleaseYear, setMovieReleaseYear, movieDuration, setMovieDuration, movieGenre, setMovieGenre, movieRating, setMovieRating, movieImageURL, setMovieImageURL, editedID, setEditedID] = useContext(MovieListContext)
+    const [, , , , movieList, setMovieList, movieTitle, setMovieTitle, movieDescription, setMovieDescription, movieReleaseYear, setMovieReleaseYear, movieDuration, setMovieDuration, movieGenre, setMovieGenre, movieRating, setMovieRating, movieImageURL, setMovieImageURL, editedID, setEditedID] = useContext(MovieListContext);
+
+    const [query, setQuery] = useState("");
 
     useEffect(() => {
         if (movieList === null) {
@@ -123,6 +125,9 @@ const MovieListEditor = () => {
             case "image-url":
                 setMovieImageURL(event.target.value);
                 break;
+            case "query":
+                setQuery(event.target.value);
+                break;
             default:
         }
     }
@@ -162,11 +167,33 @@ const MovieListEditor = () => {
         }
     };
 
+    const searchMovie = () => {
+        if (query === "") {
+            setMovieList(null);
+        } else {
+            const newData = filterByValue(movieList, query);
+
+            if (newData.length >= 1) {
+                setMovieList(newData);
+            } else {
+                setMovieList(null);
+            }
+        }
+    };
+
+    function filterByValue(array, string) {
+        if (array.length >= 1) {
+            return array.filter(o => o.title.toLowerCase().includes(string.toLowerCase()));
+        } else {
+            return [];
+        }
+    }
+
     return (
         <div className="container">
             <div className="search-container">
-                <input type="text"/>
-                <button>Search</button>
+                <input id="query" type="text" value={query} onChange={handleChange}/>
+                <button onClick={() => searchMovie()}>Search</button>
             </div>
             <div className="edit-movie-container">
                 <div className="list-title">
@@ -210,7 +237,7 @@ const MovieListEditor = () => {
             </div>
             <div className="form-container">
                 <div className="form">
-                    <h1>Form Harga Buah</h1>
+                    <h1>Movies Form</h1>
                     <form onSubmit={handleSubmit}>
                         <table>
                             <tbody>

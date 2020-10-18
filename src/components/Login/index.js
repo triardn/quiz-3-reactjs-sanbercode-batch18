@@ -1,12 +1,9 @@
-import React, {useContext, useState} from 'react';
-import {useHistory} from 'react-router-dom'; 
-
-import {MovieListContext} from './../Context';
+import React, {useState} from 'react';
+import {useHistory} from 'react-router-dom';
 
 const Login = (props) => {
     const history = useHistory();
 
-    const [, setIsLoggedIn, , setUsername] = useContext(MovieListContext);
     const [errorMessage, setErrorMessage] = useState("");
     const [uname, setUname] = useState("");
     const [password, setPassword] = useState("");
@@ -18,8 +15,8 @@ const Login = (props) => {
             return
         }
 
-        setIsLoggedIn(true);
-        setUsername(uname);
+        localStorage.setItem("username", uname);
+        localStorage.setItem("isLoggedIn", true);
 
         history.push("/");
     }

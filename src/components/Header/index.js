@@ -1,18 +1,16 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
-
-import {MovieListContext} from './../Context';
 
 import './../../App.css';
 
 const Header = () => {
-    const [isLoggedIn] = useContext(MovieListContext);
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
 
     let dynamicMenu;
     let menuInOut;
     if (isLoggedIn) {
         dynamicMenu = <Link to="/movie-list-editor">Movie List Editor</Link>;
-        menuInOut = <Link to="/logout">Logout</Link>;
+        menuInOut = <Link to="logout">Logout</Link>
     } else {
         dynamicMenu = '';
         menuInOut = <Link to="/login">Login</Link>;
