@@ -4,6 +4,8 @@ export const MovieListContext = createContext();
 
 export const MovieListProvider = props => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
     const [movieList, setMovieList] = useState(null);
     const [movieTitle, setMovieTitle] = useState("");
     const [movieDescription, setMovieDescription] = useState("");
@@ -14,7 +16,7 @@ export const MovieListProvider = props => {
     const [movieImageURL, setMovieImageURL] = useState("");
 
     return (
-        <MovieListContext.Provider value={[isLoggedIn, setIsLoggedIn, movieList, setMovieList, movieTitle, setMovieTitle, movieDescription, setMovieDescription, movieReleaseYear, setMovieReleaseYear, movieDuration, setMovieDuration, movieGenre, setMovieGenre, movieRating, setMovieRating, movieImageURL, setMovieImageURL]}>
+        <MovieListContext.Provider value={[isLoggedIn, setIsLoggedIn, username, setUsername, password, setPassword, movieList, setMovieList, movieTitle, setMovieTitle, movieDescription, setMovieDescription, movieReleaseYear, setMovieReleaseYear, movieDuration, setMovieDuration, movieGenre, setMovieGenre, movieRating, setMovieRating, movieImageURL, setMovieImageURL]}>
             {props.children}
         </MovieListContext.Provider>
     );

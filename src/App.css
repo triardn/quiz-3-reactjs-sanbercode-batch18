@@ -90,3 +90,25 @@ body {
 .about-container {
   border: 1px solid black;
 }
+
+.login-container {
+  width: 200px;
+  height: 120px;
+  margin-left: 35%;
+  margin-top: 20px;
+}
+
+.button-login-container {
+  margin-top: 10px;
+  margin-left: 50%;
+}
+
+.error-message-login {
+  width: 240px;
+  height: 20px;
+  border: 2px solid red;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 15px;
+  color: red;
+}
