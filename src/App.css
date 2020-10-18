@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,58 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+body {
+  background-image: url(/img/pattern.jpg);
+  font-family: "Slabo 27px", serif;
+  margin: 0px;
+}
+
+.header {
+  background-color: white;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  z-index: 1;
+}
+
+.nav-link a {
+  list-style: none;
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 15px;
+}
+
+.footer {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  background-color: black;
+  color: white;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  margin-left: 200px;
+  margin-right: 200px;
+  background-color: white;
+  position: relative;
+  top: 70px;
+  padding: 20px;
+  margin-bottom: 100px;
+}
+
+.about-container {
+  border: 1px solid black;
 }
