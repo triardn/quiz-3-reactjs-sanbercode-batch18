@@ -8,25 +8,29 @@ import About from './../About';
 import MovieListEditor from './../MovieListEditor';
 import Login from './../Login';
 
+import {MovieListProvider} from './../Context';
+
 const Navigation = () => {
     return (
         <>
-            <Header />
-            <Switch>
-                <Route path="/about">
-                    <About />
-                </Route>
-                <Route path="/movie-list-editor">
-                    <MovieListEditor />
-                </Route>
-                <Route path="/login">
-                    <Login />
-                </Route>
-                <Route path="/">
-                    <Home />
-                </Route>
-            </Switch>
-            <Footer />
+            <MovieListProvider>
+                <Header />
+                <Switch>
+                    <Route path="/about">
+                        <About />
+                    </Route>
+                    <Route path="/movie-list-editor">
+                        <MovieListEditor />
+                    </Route>
+                    <Route path="/login">
+                        <Login />
+                    </Route>
+                    <Route path="/">
+                        <Home />
+                    </Route>
+                </Switch>
+                <Footer />
+            </MovieListProvider>
         </>
     );
 };
