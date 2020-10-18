@@ -1,10 +1,13 @@
 import React from 'react';
 
 import Route from './components/Route';
+import {MovieListProvider} from './components/context';
 
 function App() {
   return (
-    <Route />
+    <MovieListProvider>
+      <Route />
+    </MovieListProvider>
   );
 }
 

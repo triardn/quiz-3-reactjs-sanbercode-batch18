@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+// import {MovieListContext} from './../'
+
 import './../../App.css';
 
 const Header = () => {
