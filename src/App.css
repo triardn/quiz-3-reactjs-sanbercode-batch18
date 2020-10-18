@@ -112,3 +112,11 @@ body {
   margin-bottom: 15px;
   color: red;
 }
+
+.search-container {
+}
+
+.edit-movie-container {
+  width: 550px;
+  margin-left: 22%;
+}
