@@ -1,11 +1,10 @@
 import React, {useContext, useEffect} from 'react';
+import axios from 'axios';
 
 import {MovieListContext} from  "./../Context";
 
-import axios from 'axios';
-
 const MovieListEditor = () => {
-    const [, , , , movieList, setMovieList] = useContext(MovieListContext)
+    const [, , , , movieList, setMovieList, movieTitle, setMovieTitle, movieDescription, setMovieDescription, movieReleaseYear, setMovieReleaseYear, movieDuration, setMovieDuration, movieGenre, setMovieGenre, movieRating, setMovieRating, movieImageURL, setMovieImageURL, editedID, setEditedID] = useContext(MovieListContext)
 
     useEffect(() => {
         if (movieList === null) {
@@ -36,11 +35,107 @@ const MovieListEditor = () => {
     }, [movieList, setMovieList]);
 
     const shortenDescription = (desc) => {
-        return desc.substring(0,20);
+        if (desc !== null) {
+            return desc.substring(0,20);   
+        }
+
+        return desc;
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (editedID !== "") { // edit data
+            axios.put(`http://backendexample.sanbercloud.com/api/movies/${editedID}`, {
+                title: movieTitle,
+                description: movieDescription,
+                year: movieReleaseYear,
+                duration: movieDuration,
+                genre: movieGenre,
+                rating: movieRating,
+                image_url: movieImageURL
+            })
+                .then(res => {
+                    console.log(`success updated fruit data with id ${editedID}`);
+                    setMovieList(null);
+                })
+                .catch(err => {
+                    console.log(`error when post data to api: ${err}`)
+                });
+
+            setMovieTitle("");
+            setMovieDescription("");
+            setMovieReleaseYear(2020);
+            setMovieDuration(120);
+            setMovieGenre("");
+            setMovieRating(0);
+            setMovieImageURL("");
+            setEditedID("");
+        } else { // insert new data
+            axios.post(`http://backendexample.sanbercloud.com/api/movies`, {
+                title: movieTitle,
+                description: movieDescription,
+                year: movieReleaseYear,
+                duration: movieDuration,
+                genre: movieGenre,
+                rating: movieRating,
+                image_url: movieImageURL
+            })
+                .then(res => {
+                    console.log("berhasil")
+                    setMovieList(null);
+                })
+                .catch(err => {
+                    console.log(`error when post data to api: ${err}`)
+                });
+
+            setMovieTitle("");
+            setMovieDescription("");
+            setMovieReleaseYear(2020);
+            setMovieDuration(120);
+            setMovieGenre("");
+            setMovieRating(0);
+            setMovieImageURL("");
+            setEditedID("");
+        }
+    }
+
+    const handleChange = (event) => {
+        switch (event.target.id) {
+            case "title":
+                setMovieTitle(event.target.value);
+                break;
+            case "description":
+                setMovieDescription(event.target.value);
+                break;
+            case "release-year":
+                setMovieReleaseYear(event.target.value);
+                break;
+            case "duration":
+                setMovieDuration(event.target.value);
+                break;
+            case "genre":
+                setMovieGenre(event.target.value);
+                break;
+            case "rating":
+                setMovieRating(event.target.value);
+                break;
+            case "image-url":
+                setMovieImageURL(event.target.value);
+                break;
+            default:
+        }
     }
 
     const editData = (id, data) => {
-
+        setMovieTitle(data.title);
+        setMovieDescription(data.description);
+        setMovieReleaseYear(data.year);
+        setMovieDuration(data.duration);
+        setMovieGenre(data.genre);
+        setMovieRating(data.rating);
+        setMovieImageURL(data.image_url);
+        setEditedID(id);
     }
 
     const deleteData = (id) => {
@@ -56,10 +151,14 @@ const MovieListEditor = () => {
                     console.log(`error when post data to api: ${err}`)
                 });
 
-            // setInputNama("");
-            // setInputHarga("");
-            // setInputBerat("");
-            // setEditedIndex("");
+            setMovieTitle("");
+            setMovieDescription("");
+            setMovieReleaseYear(2020);
+            setMovieDuration(120);
+            setMovieGenre("");
+            setMovieRating(0);
+            setMovieImageURL("");
+            setEditedID("");
         }
     };
 
@@ -109,7 +208,88 @@ const MovieListEditor = () => {
                         <tfoot></tfoot>}
                 </table>
             </div>
-            <div className="form-container"></div>
+            <div className="form-container">
+                <div className="form">
+                    <h1>Form Harga Buah</h1>
+                    <form onSubmit={handleSubmit}>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td style={{width: 280, fontWeight: 'bold'}}>
+                                        <label>
+                                            Title:
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input id="title" type="text" style={{width: 150}} value={movieTitle} onChange={handleChange} required />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style={{width: 280, fontWeight: 'bold'}}>
+                                        <label>
+                                            Description:
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <textarea id="description" value={movieDescription} onChange={handleChange} required rows="5" cols="17" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style={{width: 280, fontWeight: 'bold'}}>
+                                        <label>
+                                            Year:
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input id="release-year" type="number" style={{width: 150, textAlign: 'center'}} value={movieReleaseYear} onChange={handleChange} required />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style={{width: 280, fontWeight: 'bold'}}>
+                                        <label>
+                                            Duration:
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input id="duration" type="number" style={{width: 150, textAlign: 'center'}} value={movieDuration} onChange={handleChange} required />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style={{width: 280, fontWeight: 'bold'}}>
+                                        <label>
+                                            Genre:
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input id="genre" type="text" style={{width: 150}} value={movieGenre} onChange={handleChange} required />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style={{width: 280, fontWeight: 'bold'}}>
+                                        <label>
+                                            Rating:
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input id="rating" type="text" style={{width: 150, textAlign: 'center'}} value={movieRating} onChange={handleChange} required />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style={{width: 280, fontWeight: 'bold'}}>
+                                        <label>
+                                            Image URL:
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <textarea id="image-url" value={movieImageURL} onChange={handleChange} required rows="5" cols="17" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button style={{marginTop: 10}}>submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 };

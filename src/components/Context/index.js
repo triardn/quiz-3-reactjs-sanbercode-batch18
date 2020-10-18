@@ -13,9 +13,10 @@ export const MovieListProvider = props => {
     const [movieGenre, setMovieGenre] = useState("");
     const [movieRating, setMovieRating] = useState(0);
     const [movieImageURL, setMovieImageURL] = useState("");
+    const [editedID, setEditedID] = useState("")
 
     return (
-        <MovieListContext.Provider value={[isLoggedIn, setIsLoggedIn, username, setUsername, movieList, setMovieList, movieTitle, setMovieTitle, movieDescription, setMovieDescription, movieReleaseYear, setMovieReleaseYear, movieDuration, setMovieDuration, movieGenre, setMovieGenre, movieRating, setMovieRating, movieImageURL, setMovieImageURL]}>
+        <MovieListContext.Provider value={[isLoggedIn, setIsLoggedIn, username, setUsername, movieList, setMovieList, movieTitle, setMovieTitle, movieDescription, setMovieDescription, movieReleaseYear, setMovieReleaseYear, movieDuration, setMovieDuration, movieGenre, setMovieGenre, movieRating, setMovieRating, movieImageURL, setMovieImageURL, editedID, setEditedID]}>
             {props.children}
         </MovieListContext.Provider>
     );
